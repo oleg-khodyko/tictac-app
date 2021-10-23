@@ -3,8 +3,6 @@ import classes from './Leadboard.module.css';
 import PositionItem from './PositionItem/Position-item';
 import Arrow from './arrow.png';
 
-
-
 const BackBtn = (props) => {
     return(
         <button className={classes.backBtn}> 
@@ -12,16 +10,15 @@ const BackBtn = (props) => {
         </button>
     )
 }
-
 export default class Leadboard extends Component {
-
     render() {
+
         const {players} = this.props;
 
-        let itemElements = players.map((player, i) => {
+        let itemElements = players.map(player => {
                 return <PositionItem 
-                    number={player.id} 
-                    userName={player.name} 
+                    number={player.count} 
+                    userName={player.login} 
                     points={player.points} />  
         });
 
@@ -33,8 +30,10 @@ export default class Leadboard extends Component {
                     <div className={classes.profile}>Player Profile</div>
                     <div className={classes.points}>Points</div>
                 </div>
-                <div className={classes.positionItem}>
-                    <div> {itemElements} </div>
+                <div>                
+                    <ul className={classes.positionItem}>
+                        <li key={players.key}> {itemElements} </li>
+                    </ul>
                 </div>
             </div>
         );

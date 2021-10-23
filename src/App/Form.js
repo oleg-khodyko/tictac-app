@@ -1,7 +1,7 @@
-import React, {useState} from "react";
+import React from "react";
 import classes from './Form.module.css';
 
-function Form({name, login, password, nameHandler, loginHandler, passwordHandler, toPlay}) {
+function Form({name, login, password, handlerChange, toPlay}) {
 
     return (
         <section className={classes.wrapper}>
@@ -14,19 +14,20 @@ function Form({name, login, password, nameHandler, loginHandler, passwordHandler
                                 placeholder='Name' 
                                 value={name} 
                                 name='name' 
-                                onChange={nameHandler}
+                                onChange={handlerChange}
                                 autoComplete='off' />
                             <input 
                                 placeholder='Login' 
                                 value={login} 
                                 name='login' 
-                                onChange={loginHandler}
+                                onChange={handlerChange}
                                 autoComplete='off' />
                             <input 
                                 placeholder='Password' 
                                 value={password} 
+                                type='password'
                                 name='password' 
-                                onChange={passwordHandler}
+                                onChange={handlerChange}
                                 autoComplete='off' />
 
                             <button className={classes.toPlayBtn}

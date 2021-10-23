@@ -17,14 +17,14 @@
 
 .gameInfo {
     margin-top: 30px;
-    /* margin-left: 165px; */
     display: grid;
-    grid-template-rows: 1.7fr 1fr;
+    grid-template-rows: 2fr 1fr;
 }
 
 .status {
     text-align: center;
     padding-top: 10px;
+    padding-bottom: 20px;
     font-size: 48px;
     font-weight: 700;
     color: #810000;
@@ -38,10 +38,19 @@
 .moveItem {
     display: block;
     margin: 0 auto;
-    width: 450px;
-    height: 45px;
+    width: 500px;
+    height: 50px;
     font-size: 34px;
-    margin-top: 10px;
+    margin-top: 5px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border: none;
+    cursor: pointer;
+}
+.moveItem:hover {
+    font-size: 33px;
+    transition: .3s;
+    font-weight: 500;
 }
 
 .history {

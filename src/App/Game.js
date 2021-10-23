@@ -2,17 +2,18 @@ import React, { Component } from "react";
 import classes from './Game.module.css';
 import Board from "./GameBoard";
 import userLogo from './user-logo.png'; 
+// import state from './state/state';
 
 export default class Game extends Component {
-
     constructor(props) {
         super(props);
         this.state = {
             history: [{
                 squares: Array(9).fill(null)
             }],
+            count: 0,
             xIsNext: true,
-            stepNumber: 0
+            stepNumber: 0,
         };
     }
 
@@ -20,18 +21,26 @@ export default class Game extends Component {
         const history = this.state.history.slice(0, this.state.stepNumber + 1);
         const current = history[history.length-1];
         const squares = current.squares.slice();
-
-        if (calculateWinner(squares) || squares[i]) {
+        
+        if (calculateWinner(squares) || squares[i]) {      
           return;
         }
-        squares[i] = this.state.xIsNext ? 'X' : 'O';
-        this.setState({
-            history:history.concat([{
-                squares:squares
-            }]),
-            stepNumber: history.length,
-            xIsNext: !this.state.xIsNext
-        });
+        
+        if (this.state.count === 0) {
+            alert('Нажмите "Старт" для начала игры');
+        } else {
+            squares[i] = this.state.xIsNext ? 'X' : 'O';
+            this.setState({
+                history:history.concat([{
+                    squares:squares
+                }]),
+                stepNumber: history.length,
+                xIsNext: !this.state.xIsNext
+            });
+        }
+
+
+        
       }
 
       jumpTo(step) {
@@ -41,16 +50,25 @@ export default class Game extends Component {
           });
       }
 
+       toStart = () => {
+          let numOfGame = this.state.count + 1;
+          this.setState({
+              count: numOfGame
+          });
+      }
+
     render() {
-        const {currentUser, count, setCount, toPlay} = this.props;
+        const {currentUser} = this.props;
 
         const history = this.state.history;
         const current = history[this.state.stepNumber];
         const winner = calculateWinner(current.squares);
+        const count = this.state.count;
 
         let status;
         if (winner) {
-            status = `Победитель: ${winner}`
+            status = `Победитель: ${winner}`;
+
         } else {
             status = `Следующий ход: ${this.state.xIsNext ? 'X': 'O'}`;
         }
@@ -67,8 +85,6 @@ export default class Game extends Component {
                 </li>
             )
         });
-
-
 
         return(
             <section className={classes.wrapper}>
@@ -90,9 +106,9 @@ export default class Game extends Component {
                         <ol className={classes.moves}> {moves} </ol>
                     </div>
                     <div className={classes.buttons}>
-                        <button className={classes.viewRating}>Results</button>
+                        <button className={classes.viewRating}>Stop and results</button>
                         <button className={classes.viewRating}
-                                onClick={toPlay}>Stop</button>
+                                onClick={this.toStart}>Start</button>
                     </div>
                 </div>
             </section>

@@ -1,70 +1,74 @@
-import React, {useState} from "react";
+import React, { Component } from "react";
 import classes from './App.module.css';
 import Form from "./Form";
 import Game from "./Game";
 import Leadboard from "./Leadboard/Leadboard";
 import state from './state/state'
 
-function App() {
-    const [name, setName] = useState('');
-    const [login, setLogin] = useState('');
-    const [password, setPassword] = useState('');
-    const [count, setCount] = useState(0);
-    const [currentUser, setCurrentUser] = useState('');
-
-    const [players, setPlayers] = useState([
-        {id: 1, name: 'Oleg', points: 1000}
-    ])
-    const [player, setPlayer] = useState(''); 
-
-
-    const nameHandler = (event) => {
-        setName(event.target.value);
+export default class App extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            key: 100,
+            count: 1,
+            name: '',
+            login: '',
+            password: '',
+            points: 0,
+            currentUser: '',
+        }
     }
 
-    const loginHandler = (event) => {
-        setLogin(event.target.value);
+    handlerChange = (event) => {
+        const {name, value} = event.target;
+        this.setState({
+            [name]: value
+        });
     }
 
-    const passwordHandler = (event) => {
-        setPassword(event.target.value);
-    }
-    
-    const toPlay = (event) => {
+    toPlay = (event) => {
         event.preventDefault();
-        setCount(count+1);
-        if (login && name && password) {
-            setPlayer({
-                id: count,
-                name: login,
-                points: 10
-            });
-            setCurrentUser(login);
-        } else alert('error');
-        setPlayers([
-            ...players,
-            {player} 
-        ])
-        state.players.push(player)
+        const key = this.state.key + 1;
+        const count = this.state.count + 1;
+        this.setState({
+            key: key,
+            count: count
+        });
+
+        if (this.state.name && 
+            this.state.login && 
+            this.state.password) {
+                state.players.push(this.state);
+                this.setState({
+                    currentUser: this.state.login
+                }) 
+        } else alert('Заполните все поля')
     }
 
-    return(
-        <div>
-            <div className={classes.inputWrapper}>
-                <div className={classes.inputArea}>
-                    <Form name={name} 
-                            login={login} 
-                            password={password}
-                            nameHandler={nameHandler}
-                            loginHandler={loginHandler}
-                            passwordHandler={passwordHandler}
-                            toPlay={toPlay} 
-                    />
+    render() {
+        const name = this.state.name;
+        const login = this.state.login;
+        const password = this.state.password;
+        const key = this.state.key;
+        const currentUser = this.state.currentUser;
+
+        return(
+            <div>
+                <div className={classes.inputWrapper}>
+                    <div className={classes.inputArea}>
+                        <Form   name={name} 
+                                login={login} 
+                                password={password}
+                                handlerChange={this.handlerChange}
+                                toPlay={this.toPlay} />
+                    </div>
                 </div>
+                <Game   currentUser={currentUser} 
+                        toPlay={''} 
+                        pushArr={''} />
+                <Leadboard  players={state.players}
+                            keys={key}/>
             </div>
-            <Game currentUser={currentUser} count={count} setCount={setCount} toPlay={toPlay}/>
-            <Leadboard players={state.players}/>
-        </div>
-    )
+        )
+    }
 }
-export default App;

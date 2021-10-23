@@ -7,24 +7,14 @@
     font-size: 55px;
     line-height: 64px;
     color: #810000;
-    /* background: rgba(254, 233, 231, 0.69); */
     border-top: 3px solid #810000;
-    border-bottom: 3px solid #810000;
 }
-
-.secondItem {
-    width: 1680px;
-    height: 150px;
-    display: grid;
-    grid-template-columns: 30% 40% 30%;
-    margin-left: 189px;
-    font-size: 55px;
-    line-height: 64px;
-    color: #810000;
-    background: rgba(254, 233, 231, 0.69);
-    border-top: 3px solid #810000;
-    border-bottom: 3px solid #810000;
-}
+    .item:nth-child(even) {
+        background: rgba(254, 233, 231, 0.69);
+    }
+    .item:nth-child(1) {
+        border: none;
+    }
 
 .number {
     padding-left: 95px;
@@ -48,5 +38,4 @@
     align-items:center;
     padding-left: 330px;
     font-weight: 700;
-
 }
