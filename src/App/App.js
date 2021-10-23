@@ -12,6 +12,12 @@ function App() {
     const [count, setCount] = useState(0);
     const [currentUser, setCurrentUser] = useState('');
 
+    const [players, setPlayers] = useState([
+        {id: 1, name: 'Oleg', points: 1000}
+    ])
+    const [player, setPlayer] = useState(''); 
+
+
     const nameHandler = (event) => {
         setName(event.target.value);
     }
@@ -26,13 +32,20 @@ function App() {
     
     const toPlay = (event) => {
         event.preventDefault();
+        setCount(count+1);
         if (login && name && password) {
-            setCurrentUser(login || name);
-            setCount(count + 1);
-        } else {
-            alert('error')
-        }
-
+            setPlayer({
+                id: count,
+                name: login,
+                points: 10
+            });
+            setCurrentUser(login);
+        } else alert('error');
+        setPlayers([
+            ...players,
+            {player} 
+        ])
+        state.players.push(player)
     }
 
     return(
@@ -49,7 +62,7 @@ function App() {
                     />
                 </div>
             </div>
-            <Game currentUser={currentUser} count={count} setCount={setCount}/>
+            <Game currentUser={currentUser} count={count} setCount={setCount} toPlay={toPlay}/>
             <Leadboard players={state.players}/>
         </div>
     )

@@ -1,0 +1,54 @@
+.wrapper {
+    position: relative;
+    width: 1920px;
+    max-height: 1080px;
+    background-color: #FFD7D4;
+    margin: 0 auto; 
+    margin-top: 20px;
+    padding-top: 30px;
+}
+
+.backBtn {
+    position: absolute;
+    width: 120px;
+    height: 120px;
+    left: 30px;
+    top: 40px;
+    background: #C63838;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.header {
+    width: 1680px;
+    height: 140px;
+    border: 3px solid #810000;
+    border-radius: 30px;
+    background: rgba(254, 233, 231, 0.69);
+    display: grid;
+    grid-template-columns: 30% 40% 30%;
+    grid-column-gap: 5px;
+    margin-left: 189px;
+    color: #810000;
+    font-size: 60px;
+    font-weight: 700;
+    line-height: 70px;
+    padding-top: 30px;
+}
+    .number {
+        padding-left: 95px;
+    }
+
+    .profile {
+        padding-left: 28px;
+    }
+
+    .points {
+        padding-left: 235px;
+    }

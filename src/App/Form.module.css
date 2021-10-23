@@ -1,0 +1,70 @@
+
+.wrapper {
+    width: 1920px;
+    height: 1080px;
+    background-color: #FFD7D4;
+    margin: 0 auto; 
+    display: flex;
+    justify-content: center;
+    align-items:top;
+}
+
+.content {
+    margin-top: 32px;
+}
+
+.title {
+    /* margin-bottom: 35px; */
+    text-align: center;
+    font-weight: bold;
+    font-size: 65px;
+    line-height: 76px;
+    color: #810000;
+}
+
+.inputWrapper {
+    width: 895px;
+    height: 727px;
+    border: 8px solid #810000;
+    border-radius: 30px;
+    margin-top: 66px;
+}
+
+.inputArea {
+    width: 254px;
+    margin-left: 96px;
+    padding-top: 75px;
+}
+
+.form input{
+    width: 692px;
+    height: 56px;
+    border: none;
+    border-bottom: 8px solid #810000;
+    background: rgba(225, 225, 225, 0);
+    font-size: 36px;
+    margin-top: 39px;
+    color: #810000;
+    font-weight: 700;
+    outline: none;
+}
+
+::placeholder {
+    color: #810000;
+    opacity: .9;
+}
+
+.toPlayBtn {
+    display: block;
+    width: 286px;
+    height: 81px;   
+    background: #C63838;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 34px;
+    color: #FEE9E7;
+    font-size: 36px;
+    margin-left: 210px;
+    margin-top: 112px;
+    border: none;
+    cursor: pointer;
+}
