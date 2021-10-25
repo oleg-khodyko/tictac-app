@@ -1,7 +1,7 @@
 import React from "react";
 import classes from './Form.module.css';
 
-function Form({name, login, password, handlerChange, toPlay}) {
+function Form({name, login, password, handlerChange, handlerClick}) {
 
     return (
         <section className={classes.wrapper}>
@@ -31,7 +31,7 @@ function Form({name, login, password, handlerChange, toPlay}) {
                                 autoComplete='off' />
 
                             <button className={classes.toPlayBtn}
-                                    onClick={toPlay}
+                                    onClick={handlerClick}
                             > To Play
                             </button>
                             

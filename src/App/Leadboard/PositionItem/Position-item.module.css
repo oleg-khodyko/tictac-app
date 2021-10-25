@@ -8,9 +8,10 @@
     line-height: 64px;
     color: #810000;
     border-top: 3px solid #810000;
+    list-style: none;
 }
     .item:nth-child(even) {
-        background: rgba(254, 233, 231, 0.69);
+        background: rgba(216, 183, 180, 0.69);
     }
     .item:nth-child(1) {
         border: none;

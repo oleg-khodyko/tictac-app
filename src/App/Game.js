@@ -11,23 +11,29 @@ export default class Game extends Component {
             history: [{
                 squares: Array(9).fill(null)
             }],
-            count: 0,
             xIsNext: true,
             stepNumber: 0,
+            count: 0,
+            id: this.props.count,
+            currentUser: this.props.currentUser,
+            points: this.props.points
         };
     }
 
     handleClick(i) {
+        const currentUser = this.props.currentUser;
         const history = this.state.history.slice(0, this.state.stepNumber + 1);
-        const current = history[history.length-1];
+        const current = history[history.length - 1];
         const squares = current.squares.slice();
-        
-        if (calculateWinner(squares) || squares[i]) {      
-          return;
+       
+        if (calculateWinner(squares) || squares[i]) {
+            return;
         }
         
         if (this.state.count === 0) {
             alert('Нажмите "Старт" для начала игры');
+        } else if (!currentUser) {
+            alert('Зарегистрируйтесь');
         } else {
             squares[i] = this.state.xIsNext ? 'X' : 'O';
             this.setState({
@@ -38,28 +44,55 @@ export default class Game extends Component {
                 xIsNext: !this.state.xIsNext
             });
         }
-
-
-        
       }
 
-      jumpTo(step) {
-          this.setState({
-              stepNumber: step,
-              xIsNext: (step % 2 === 0)
-          });
-      }
+      
 
-       toStart = () => {
-          let numOfGame = this.state.count + 1;
-          this.setState({
-              count: numOfGame
-          });
-      }
+    jumpTo(step) {
+    this.setState({
+        stepNumber: step,
+        xIsNext: (step % 2 === 0)
+    });
+    }
+
+    toStart = (event) => {
+        event.preventDefault();
+        const currentUser = this.props.currentUser;
+        const numOfGame = this.state.count + 1;
+        if (currentUser) {
+            this.setState({
+                count: numOfGame,
+                currentUser: currentUser
+            });
+        } else alert('Зарегистрируйтесь');
+    }
+
+    writeResults = (event) => {
+        event.preventDefault();
+        const history = this.state.history;
+        const current = history[this.state.stepNumber];
+        const winner = calculateWinner(current.squares);
+        const currentPoints = this.state.points + 10;
+
+        if (winner) {   
+            this.setState({
+                points: currentPoints
+            })
+            console.log(this.state);
+            this.setState({
+                history: [{
+                    squares: Array(9).fill(null)
+                }],
+                stepNumber: 0,
+                count: 0,
+                currentUser: ''
+            });
+
+        } else alert('Завершите игру');
+    }
+
 
     render() {
-        const {currentUser} = this.props;
-
         const history = this.state.history;
         const current = history[this.state.stepNumber];
         const winner = calculateWinner(current.squares);
@@ -68,7 +101,6 @@ export default class Game extends Component {
         let status;
         if (winner) {
             status = `Победитель: ${winner}`;
-
         } else {
             status = `Следующий ход: ${this.state.xIsNext ? 'X': 'O'}`;
         }
@@ -92,7 +124,7 @@ export default class Game extends Component {
                     <div className={classes.wrapperUserBar}>
                     <img src={userLogo} alt='user-logo'/>
                         <div className={classes.currentUser}>
-                            <p className={classes.name}>Игрок: {currentUser} </p>
+                            <p className={classes.name}>Игрок: {this.state.currentUser} </p>
                             <p className={classes.numOfPlay}>Игра № {count}</p>
                         </div>
                     </div>
@@ -106,7 +138,8 @@ export default class Game extends Component {
                         <ol className={classes.moves}> {moves} </ol>
                     </div>
                     <div className={classes.buttons}>
-                        <button className={classes.viewRating}>Stop and results</button>
+                        <button className={classes.viewRating}
+                                onClick={this.writeResults}>Stop and results</button>
                         <button className={classes.viewRating}
                                 onClick={this.toStart}>Start</button>
                     </div>
@@ -134,4 +167,4 @@ function calculateWinner(squares) {
       }
     }
     return null;
-  }
+}

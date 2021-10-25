@@ -14,7 +14,7 @@ export default class App extends Component {
             name: '',
             login: '',
             password: '',
-            points: 0,
+            points: 10,
             currentUser: '',
         }
     }
@@ -26,30 +26,35 @@ export default class App extends Component {
         });
     }
 
-    toPlay = (event) => {
+    handlerClick = (event) => {
         event.preventDefault();
         const key = this.state.key + 1;
         const count = this.state.count + 1;
-        this.setState({
-            key: key,
-            count: count
-        });
 
         if (this.state.name && 
             this.state.login && 
             this.state.password) {
+                this.setState({
+                    key: key,
+                    count: count
+                });
                 state.players.push(this.state);
                 this.setState({
                     currentUser: this.state.login
                 }) 
-        } else alert('Заполните все поля')
+        } else alert('Заполните все поля');
+
+        this.setState({
+            name: '',
+            login: '',
+            password: ''
+        });
     }
 
     render() {
         const name = this.state.name;
         const login = this.state.login;
         const password = this.state.password;
-        const key = this.state.key;
         const currentUser = this.state.currentUser;
 
         return(
@@ -60,14 +65,11 @@ export default class App extends Component {
                                 login={login} 
                                 password={password}
                                 handlerChange={this.handlerChange}
-                                toPlay={this.toPlay} />
+                                handlerClick={this.handlerClick} />
                     </div>
                 </div>
-                <Game   currentUser={currentUser} 
-                        toPlay={''} 
-                        pushArr={''} />
-                <Leadboard  players={state.players}
-                            keys={key}/>
+                <Game   currentUser={currentUser} />
+                <Leadboard  players={state.players}/>
             </div>
         )
     }

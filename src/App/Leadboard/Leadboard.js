@@ -4,6 +4,7 @@ import PositionItem from './PositionItem/Position-item';
 import Arrow from './arrow.png';
 
 const BackBtn = (props) => {
+
     return(
         <button className={classes.backBtn}> 
             <img src={props.arrImg} alt='back' />
@@ -14,12 +15,15 @@ export default class Leadboard extends Component {
     render() {
 
         const {players} = this.props;
+        
 
         let itemElements = players.map(player => {
-                return <PositionItem 
-                    number={player.count} 
-                    userName={player.login} 
-                    points={player.points} />  
+                    // return <li key={player.key} > 
+                    return    <PositionItem 
+                            number={player.count} 
+                            userName={player.login} 
+                            points={player.points} />  
+                    // </li>
         });
 
         return(
@@ -32,7 +36,8 @@ export default class Leadboard extends Component {
                 </div>
                 <div>                
                     <ul className={classes.positionItem}>
-                        <li key={players.key}> {itemElements} </li>
+                        <li>{itemElements}</li>
+                        
                     </ul>
                 </div>
             </div>
